@@ -6,6 +6,10 @@ const { testarConexao } = require('./config/db');
 const { tratarErros } = require('./middlewares/erros');
 
 const authRoutes = require('./routes/authRoutes');
+const categoriaRoutes = require('./routes/categoriaRoutes');
+const fonteDestinoRoutes = require('./routes/fonteDestinoRoutes');
+const lancamentoRoutes = require('./routes/lancamentoRoutes');
+const relatorioRoutes = require('./routes/relatorioRoutes');
 
 const app = express();
 
@@ -19,6 +23,10 @@ app.get('/api/status', (req, res) => {
 
 // Rotas (cada arquivo cuida de um "recurso")
 app.use('/api/auth', authRoutes);
+app.use('/api/categorias', categoriaRoutes);
+app.use('/api/fontes-destinos', fonteDestinoRoutes);
+app.use('/api/lancamentos', lancamentoRoutes);
+app.use('/api/relatorios', relatorioRoutes);
 
 // Nenhuma rota atendeu -> 404
 app.use((req, res) => {
