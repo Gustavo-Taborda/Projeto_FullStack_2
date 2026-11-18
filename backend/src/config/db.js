@@ -14,6 +14,16 @@ const pool = new Pool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
+  ssl: { rejectUnauthorized: false }, // Supabase exige conexão segura
+  max: 5,                             // menos conexões simultâneas
+  keepAlive: true,                    // mantém a conexão viva
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 10000,
+});
+
+// Sem isso, um erro numa conexão ociosa derruba o programa inteiro
+pool.on('error', (erro) => {
+  console.error('Erro em conexão ociosa do pool:', erro.message);
 });
 
 async function testarConexao() {
